@@ -1,0 +1,90 @@
+<resources>
+    <string name="app_name">声音定位</string>
+    <string name="title_activity_settings">设置</string>
+
+    <!-- Preference Titles -->
+    <string name="main_settings_header">界面</string>
+    <string name="common_settings_header">通用</string>
+    <string name="receiver_settings_header">接受</string>
+    <string name="sender_settings_header">发送</string>
+
+    <!-- UI Preferences -->
+    <string name="receiver_enabled_key">receiverEnabled</string>
+    <string name="receiver_enabled_title">接收器</string>
+    <string name="receiver_enabled_on">开启接受模块</string>
+    <string name="receiver_enabled_off">关闭接受模块</string>
+
+    <string name="sender_enabled_key">senderEnabled</string>
+    <string name="sender_enabled_title">发送器</string>
+    <string name="sender_enabled_on">开启发送模块</string>
+    <string name="sender_enabled_off">关闭发送模块</string>
+
+    <string name="log_level_key">logLevel</string>
+    <string name="log_level_title">输出信息等级</string>
+
+    <string name="draw_time_enabled_key">drawTime</string>
+    <string name="draw_time_enabled_title">绘制时域曲线</string>
+    <string name="draw_time_enabled_on">开启绘制时域曲线</string>
+    <string name="draw_time_enabled_off">关闭绘制时域曲线</string>
+
+    <string name="draw_receiver1_enabled_key">drawReceiver1</string>
+    <string name="draw_receiver1_enabled_title">绘制第1接收器距离曲线</string>
+    <string name="draw_receiver1_enabled_on">开启绘制第1接收器距离曲线</string>
+    <string name="draw_receiver1_enabled_off">关闭绘制第1接收器距离曲线</string>
+
+    <string name="draw_receiver2_enabled_key">drawReceiver2</string>
+    <string name="draw_receiver2_enabled_title">绘制第2接收器距离曲线</string>
+    <string name="draw_receiver2_enabled_on">开启绘制第2接收器距离曲线</string>
+    <string name="draw_receiver2_enabled_off">关闭绘制第2接收器距离曲线</string>
+
+    <string name="draw_two_dimension_enabled_key">drawTwoDimension</string>
+    <string name="draw_two_dimension_enabled_title">绘制二维距离曲线</string>
+    <string name="draw_two_dimension_enabled_on">开启绘制二维距离曲线</string>
+    <string name="draw_two_dimension_enabled_off">关闭绘制二维距离曲线</string>
+
+    <!-- Common Preferences -->
+    <string name="cycle_time_key">cycleTime</string>
+    <string name="cycle_time_title">Chrip周期时长</string>
+
+    <string name="start_freq1_key">startFreq1</string>
+    <string name="start_freq1_title">第1接收器Chirp起始频率</string>
+
+    <string name="end_freq1_key">endFreq1</string>
+    <string name="end_freq1_title">第1接收器Chirp终止频率</string>
+
+    <string name="start_freq2_key">startFreq2</string>
+    <string name="start_freq2_title">第2接收器Chirp起始频率</string>
+
+    <string name="end_freq2_key">endFreq2</string>
+    <string name="end_freq2_title">第2接收器Chirp终止频率</string>
+
+    <!-- Receiver Preferences -->
+    <string name="two_dimension_enabled_key">twoDimensionEnabled</string>
+    <string name="two_dimension_enabled_title">二维接收</string>
+    <string name="two_dimension_enabled_on">启用二维接受</string>
+    <string name="two_dimension_enabled_off">启用一维接受</string>
+
+    <string name="start_intensity_threshold_key">startIntensityThreshold</string>
+    <string name="start_intensity_threshold_title">起始强度阈值</string>
+
+    <string name="start_index_std_limit_key">startIndexStdLimit</string>
+    <string name="start_index_std_limit_title">起始偏移标准差阈值</string>
+
+    <string name="end_intensity_threshold_key">endIntensityThreshold</string>
+    <string name="end_intensity_threshold_title">终止强度阈值</string>
+
+    <string name="end_index_std_limit_key">endIndexStdLimit</string>
+    <string name="end_index_std_limit_title">终止偏移标准差阈值</string>
+
+    <string name="buffer_length_key">bufferLength</string>
+    <string name="buffer_length_title">缓冲区符号个数</string>
+
+    <string name="fft_length_key">fffLength</string>
+    <string name="fft_length_title">FFT长度</string>
+
+    <!-- Sender Preferences -->
+    <string name="use_second_sender_key">useSecondSender</string>
+    <string name="use_second_sender_title">第2发送器</string>
+    <string name="use_second_sender_on">启用第2发送器</string>
+    <string name="use_second_sender_off">启用第1发送器</string>
+</resources>

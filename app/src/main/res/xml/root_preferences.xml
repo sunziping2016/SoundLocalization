@@ -1,0 +1,194 @@
+<!--
+  ~ Copyright 2018 The app Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/main_settings_header">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="@bool/receiver_enabled_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/receiver_enabled_key"
+            app:summaryOff="@string/receiver_enabled_off"
+            app:summaryOn="@string/receiver_enabled_on"
+            app:title="@string/receiver_enabled_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="@bool/sender_enabled_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/sender_enabled_key"
+            app:summaryOff="@string/sender_enabled_off"
+            app:summaryOn="@string/sender_enabled_on"
+            app:title="@string/sender_enabled_title" />
+
+        <ListPreference
+            app:defaultValue="@string/log_level_default"
+            app:entries="@array/log_level_entries"
+            app:entryValues="@array/log_level_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/log_level_key"
+            app:title="@string/log_level_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="@bool/draw_time_enabled_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/draw_time_enabled_key"
+            app:summaryOff="@string/draw_time_enabled_off"
+            app:summaryOn="@string/draw_time_enabled_on"
+            app:title="@string/draw_time_enabled_title" />
+        
+        <SwitchPreferenceCompat
+            app:defaultValue="@bool/draw_receiver1_enabled_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/draw_receiver1_enabled_key"
+            app:summaryOff="@string/draw_receiver1_enabled_off"
+            app:summaryOn="@string/draw_receiver1_enabled_on"
+            app:title="@string/draw_receiver1_enabled_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="@bool/draw_receiver2_enabled_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/draw_receiver2_enabled_key"
+            app:summaryOff="@string/draw_receiver2_enabled_off"
+            app:summaryOn="@string/draw_receiver2_enabled_on"
+            app:title="@string/draw_receiver2_enabled_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="@bool/draw_two_dimension_enabled_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/draw_two_dimension_enabled_key"
+            app:summaryOff="@string/draw_two_dimension_enabled_off"
+            app:summaryOn="@string/draw_two_dimension_enabled_on"
+            app:title="@string/draw_two_dimension_enabled_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/common_settings_header">
+
+        <EditTextPreference
+            app:defaultValue="@string/cycle_time_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/cycle_time_key"
+            app:title="@string/cycle_time_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:defaultValue="@string/start_freq1_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/start_freq1_key"
+            app:title="@string/start_freq1_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:defaultValue="@string/end_freq1_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/end_freq1_key"
+            app:title="@string/end_freq1_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:defaultValue="@string/start_freq2_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/start_freq2_key"
+            app:title="@string/start_freq2_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:defaultValue="@string/end_freq2_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/end_freq2_key"
+            app:title="@string/end_freq2_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/receiver_settings_header">
+        
+        <SwitchPreferenceCompat
+            app:defaultValue="@bool/two_dimension_enabled_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/two_dimension_enabled_key"
+            app:summaryOff="@string/two_dimension_enabled_off"
+            app:summaryOn="@string/two_dimension_enabled_on"
+            app:title="@string/two_dimension_enabled_title" />
+        
+        <EditTextPreference
+            app:defaultValue="@string/start_intensity_threshold_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/start_intensity_threshold_key"
+            app:title="@string/start_intensity_threshold_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:defaultValue="@string/start_index_std_limit_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/start_index_std_limit_key"
+            app:title="@string/start_index_std_limit_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:defaultValue="@string/end_intensity_threshold_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/end_intensity_threshold_key"
+            app:title="@string/end_intensity_threshold_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:defaultValue="@string/end_index_std_limit_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/end_index_std_limit_key"
+            app:title="@string/end_index_std_limit_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:defaultValue="@string/buffer_length_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/buffer_length_key"
+            app:title="@string/buffer_length_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:defaultValue="@string/fft_length_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/fft_length_key"
+            app:title="@string/fft_length_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/sender_settings_header">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="@bool/use_second_sender_default"
+            app:iconSpaceReserved="false"
+            app:key="@string/use_second_sender_key"
+            app:summaryOff="@string/use_second_sender_off"
+            app:summaryOn="@string/use_second_sender_on"
+            app:title="@string/use_second_sender_title" />
+        
+    </PreferenceCategory>
+
+</PreferenceScreen>
