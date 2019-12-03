@@ -22,10 +22,8 @@ import android.view.MenuItem;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Deque;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -91,6 +89,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private AtomicBoolean senderOn = new AtomicBoolean(false);
     private AudioRecord receiver;
     private AudioTrack sender;
+
+    private Float recentReceiver1Position;
+    private Float recentReceiver2Position;
 
     // Default value
     @Override
@@ -196,6 +197,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             startActivity(intent);
         } else if (id == R.id.clearButton) {
             contentText.setText("");
+            plotView.clearAllData();
+            plotView.postInvalidate();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -404,6 +407,36 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         updateParameter();
     }
 
+    private synchronized void setRecentReceiver1Position(float position) {
+        recentReceiver1Position = position;
+        if (recentReceiver2Position != null)
+            updateTwoDimensionPosition();
+    }
+
+    private synchronized void setRecentReceiver2Position(float position) {
+        recentReceiver2Position = position;
+        if (recentReceiver1Position != null)
+            updateTwoDimensionPosition();
+    }
+
+    private void updateTwoDimensionPosition() {
+        if (drawTwoDimension.get()) {
+            float p1 = recentReceiver1Position, p2 = recentReceiver2Position;
+            float d = 0.5f;
+            float x = (p2 * p2 - p1 * p1) / (4 * d);
+            float base = -(float) Math.pow(p1, 4) - (float) Math.pow(p2, 4)
+                    + 8 * d * d * (p1 * p1 + p2 * p2) + 2 * (p1 * p1 * p2 * p2)
+                    - 16 * (float) Math.pow(d, 4);
+            float y = 0;
+            if (base > 0)
+                y = (float) Math.sqrt(base) / (4 * d);
+            plotView.addPositionData(x, y);
+            plotView.postInvalidate();
+        }
+        recentReceiver1Position = null;
+        recentReceiver2Position = null;
+    }
+
     protected void setReceiverEnabled(boolean enabled) {
         if (receiverEnabled == enabled)
             return;
@@ -417,7 +450,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             processors[0] = new ReceiverProcessor(1, symbol1,
                     new ReceiverProcessorResultHandler() {
                         @Override
-                        public void handle(int result, int length) {
+                        public int handle(int result, int length) {
                             final float position = (float) result * SAMPLING_RATE_IN_HZ / length *
                                     340 * cycleTime / Math.abs(endFreq1 - startFreq1);
                             runOnUiThread(new Runnable() {
@@ -430,13 +463,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                             });
                             plotView.addReceiver1Data(position);
                             plotView.postInvalidate();
+                            setRecentReceiver1Position(position);
+                            return Math.round(position / 340 * SAMPLING_RATE_IN_HZ);
                         }
                     });
             if (twoDimensionEnabled) {
                 processors[1] = new ReceiverProcessor(2, symbol2,
                         new ReceiverProcessorResultHandler() {
                             @Override
-                            public void handle(int result, int length) {
+                            public int handle(int result, int length) {
                                 final float position = (float) result * SAMPLING_RATE_IN_HZ /
                                         length * 340 * cycleTime / Math.abs(endFreq2 - startFreq2);
                                 runOnUiThread(new Runnable() {
@@ -449,6 +484,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                                 });
                                 plotView.addReceiver2Data(position);
                                 plotView.postInvalidate();
+                                setRecentReceiver2Position(position);
+                                return Math.round(position / 340 * SAMPLING_RATE_IN_HZ);
                             }
                         });
             }
@@ -463,7 +500,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
     private interface ReceiverProcessorResultHandler {
-        void handle(int result, int length);
+        int handle(int result, int length);
     }
 
     private class ReceiverProcessor {
@@ -471,8 +508,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         private Deque<Float> intensitiesBuffer = new ArrayDeque<>();
         private Deque<Integer> indicesBuffer = new ArrayDeque<>();
         private boolean started = false;
-        private int paddingOffset = 50;
-        private int indexOffset;
+        private int paddingOffset = 65;
         private float[] signalBuffer = new float[0];
 
         private int receiverIndex;
@@ -480,7 +516,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         private ReceiverProcessorResultHandler handler;
 
         public ReceiverProcessor(int receiverIndex, float[] symbol,
-                                 ReceiverProcessorResultHandler handler) {
+                          ReceiverProcessorResultHandler handler) {
             this.receiverIndex = receiverIndex;
             this.symbol = symbol;
             this.handler = handler;
@@ -530,8 +566,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                             stdIndicesBuffer <= startIndexStdLimit) {
                         started = true;
                         logOnUiThread(LogLevel.INFO,
-                                String.format("I: Receiver@%d started", receiverIndex));
-                        indexOffset = Math.round(meanIndicesBuffer);
+                                String.format("I: Receiver@%d started: int: %f, dev %f",
+                                        receiverIndex, meanIntensitiesBuffer, stdIndicesBuffer));
+                        int indexOffset = Math.round(meanIndicesBuffer);
                         indexOffset -= paddingOffset;
                         if (indexOffset < 0)
                             indexOffset += symbolLength;
@@ -543,7 +580,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                             stdIndicesBuffer > endIndexStdLimit) {
                         started = false;
                         logOnUiThread(LogLevel.INFO,
-                                String.format("I: Receiver@%d stopped", receiverIndex));
+                                String.format("I: Receiver@%d stopped: int: %f, dev %f",
+                                        receiverIndex, meanIndicesBuffer, stdIndicesBuffer));
                         signalBuffer = new float[0];
                     }
                 }
@@ -575,7 +613,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                                 maxIndex = i;
                             }
                         }
-                        handler.handle(maxIndex, length);
+                        paddingOffset = handler.handle(maxIndex, length);
                     }
                 }
             }
@@ -590,7 +628,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private class ReceiverRunnable implements Runnable {
         private ReceiverProcessor[] processors;
 
-        public ReceiverRunnable(ReceiverProcessor[] processors) {
+        private ReceiverRunnable(ReceiverProcessor[] processors) {
             this.processors = processors;
         }
 

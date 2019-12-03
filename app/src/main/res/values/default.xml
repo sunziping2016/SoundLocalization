@@ -4,7 +4,7 @@
     <!-- UI Preferences -->
     <bool name="receiver_enabled_default">true</bool>
     <bool name="sender_enabled_default">false</bool>
-    <string name="log_level_default">error</string>
+    <string name="log_level_default">info</string>
     <bool name="draw_time_enabled_default">false</bool>
     <bool name="draw_receiver1_enabled_default">true</bool>
     <bool name="draw_receiver2_enabled_default">false</bool>
@@ -14,7 +14,7 @@
     <string name="cycle_time_default">0.04</string>
     <string name="start_freq1_default">4000</string>
     <string name="end_freq1_default">8000</string>
-    <string name="start_freq2_default">2000</string>
+    <string name="start_freq2_default">8000</string>
     <string name="end_freq2_default">4000</string>
 
     <!-- Receiver Preferences -->
@@ -22,9 +22,9 @@
     <string name="start_intensity_threshold_default">6</string>
     <string name="start_index_std_limit_default">50</string>
     <string name="end_intensity_threshold_default">6</string>
-    <string name="end_index_std_limit_default">100</string>
+    <string name="end_index_std_limit_default">200</string>
     <string name="buffer_length_default">6</string>
-    <string name="fft_length_default">65536</string>
+    <string name="fft_length_default">8192</string>
 
     <!-- Sender Preferences -->
     <bool name="use_second_sender_default">false</bool>
